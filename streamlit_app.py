@@ -219,7 +219,7 @@ te amo muchísimo, Ismael, y eres una de las partes más bonitas de mi vida.
 Por cierto, tal vez no sé mucho de fútbol, pero sí supe hacerte este detalle..
 """.strip()
 
-ASSET_VIDEO_PATH = "assets/video_final.mp4"
+ASSET_VIDEO_PATH = "assets/video_final.png"
 
 
 # =========================================================
