@@ -57,13 +57,13 @@ TRIVIA = [
             "Cuando salimos a caminar",
         ],
         "correcta": 1,
-        "explicacion": "La canción entera tiene un lugar demasiado especial en mi corazón.",
+        "explicacion": "La canción que me hiciste me encantó, siempre tendrá un lugar demasiado especial en mi corazón.",
     },
     {
         "pregunta": "¿Qué apodo me dices tú con cariño?",
         "opciones": ["Gordita", "Cachetona", "Princesa", "Amor"],
         "correcta": 1,
-        "explicacion": "Sí, tú me dices cachetona 💙",
+        "explicacion": "Sí amor, tú me dices cachetona 💙",
     },
     {
         "pregunta": "¿Qué plan representa mejor nuestra parte creativa?",
@@ -74,7 +74,7 @@ TRIVIA = [
             "Ir de compras",
         ],
         "correcta": 0,
-        "explicacion": "Nuestros momentos creativos también son parte de lo más bonito de nosotros.",
+        "explicacion": "Recuerdas cuando pintamos en cartulina y dibujamos nuestras siluetas? Esos momentos creativos también son parte de lo más bonito de nosotros.",
     },
     {
         "pregunta": "¿Dónde colocamos un candado juntos?",
@@ -130,7 +130,7 @@ PHOTO_ROUNDS = [
             "Un cumpleaños diferente",
         ],
         "correcta": 1,
-        "explicacion": "Ese momento también quedó guardado en mi corazón.",
+        "explicacion": "Ese momento, tus cartas, tus palabras, todo quedó guardado en mi corazón.",
     },
 ]
 
@@ -380,7 +380,7 @@ def theme_css() -> str:
 def sidebar() -> None:
     st.sidebar.title("Marcador")
     st.sidebar.markdown(f"**Puntos:** {st.session_state.score}")
-    st.sidebar.progress(min(st.session_state.score / 22, 1.0))
+    st.sidebar.progress(min(st.session_state.score / 100, 1.0))
     st.sidebar.button("Reiniciar juego", on_click=reset_game, use_container_width=True)
 
 
@@ -489,7 +489,7 @@ def page_trivia() -> None:
                 return
             chosen_index = q["opciones"].index(choice)
             if chosen_index == q["correcta"]:
-                mark_completed(f"trivia_{idx}", 2)
+                mark_completed(f"trivia_{idx}", 7)
                 st.session_state.trivia_feedback = ("success", "¡Golazo! Respuesta correcta.", q["explicacion"])
             else:
                 st.session_state.trivia_feedback = ("error", "Casi... esa no era.", q["explicacion"])
@@ -529,7 +529,7 @@ def page_photos() -> None:
                 return
             chosen_index = item["opciones"].index(choice)
             if chosen_index == item["correcta"]:
-                mark_completed(f"photo_{idx}", 2)
+                mark_completed(f"photo_{idx}", 7)
                 st.session_state.photo_feedback = ("success", "¡Sí fue ese momento!", item["explicacion"])
             else:
                 st.session_state.photo_feedback = ("error", "Uy, no era ese recuerdo.", item["explicacion"])
@@ -590,7 +590,7 @@ def page_crossword() -> None:
             st.session_state.crossword_checked = True
 
             if not new_errors:
-                mark_completed("crossword", 4)
+                mark_completed("crossword", 15)
             st.rerun()
 
         if st.session_state.crossword_checked and errors:
@@ -612,32 +612,6 @@ def page_crossword() -> None:
         st.caption("💙 De tu cachetona")
         st.button("Ir a ¿Qué pasó primero?", on_click=go, args=("timeline",), use_container_width=True)
 
-
-def page_timeline_antiguo() -> None:
-    st.header("Ronda 4 — ¿Qué pasó primero?")
-    st.markdown("Ordena estos recuerdos del primero al último.")
-
-    selected = []
-    options = ["-- Elegir --"] + TIMELINE
-    for i in range(len(TIMELINE)):
-        selected.append(st.selectbox(f"Posición {i + 1}", options, key=f"timeline_{i}"))
-
-    if st.button("Revisar orden", use_container_width=True):
-        chosen = [s for s in selected if s != "-- Elegir --"]
-        if len(chosen) != len(TIMELINE):
-            st.warning("Completa todas las posiciones.")
-            return
-        if len(set(chosen)) != len(TIMELINE):
-            st.warning("Cada recuerdo debe usarse una sola vez.")
-            return
-        if selected == TIMELINE_CORRECT:
-            mark_completed("timeline", 4)
-            st.success("¡Perfecto! Sí recuerdas la secuencia de nuestra historia.")
-        else:
-            st.error("Casi... el orden no era ese. Puedes volver a intentarlo.")
-
-    if "timeline" in st.session_state.completed:
-        st.button("Desbloquear premio final 🏆", on_click=go, args=("final",), use_container_width=True)
 
 def page_timeline() -> None:
     st.header("Ronda 4 — ¿Qué pasó primero?")
@@ -678,7 +652,7 @@ def page_timeline() -> None:
         ]
 
         if ordered_ids == TIMELINE_CORRECT:
-            mark_completed("timeline", 4)
+            mark_completed("timeline", 15)
             st.success("¡Perfecto! Sí recuerdas la secuencia de nuestra historia.")
         else:
             st.error("Casi... el orden no era ese. Puedes volver a intentarlo.")
