@@ -707,8 +707,8 @@ def page_final() -> None:
     if video_path:
         st.video(str(video_path))
     else:
-        st.info("Pon tu video como `assets/video_final.mp4` o súbelo aquí.")
-        upload = st.file_uploader("Sube el video final", type=["mp4", "mov", "m4v"], key="final_video")
+        st.info("Pon tu video como `assets/video_final.png` o súbelo aquí.")
+        upload = st.file_uploader("Sube el video final", type=["mp4", "mov", "m4v", "png"], key="final_video")
         if upload:
             st.video(upload)
 
