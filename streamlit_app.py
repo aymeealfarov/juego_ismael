@@ -709,7 +709,7 @@ def page_final() -> None:
         st.image(str(video_path), use_container_width=True)
     else:
         st.info("Pon tu video como `assets/video_final.png` o súbelo aquí.")
-        upload = st.file_uploader("Sube el video final", type=["mp4", "mov", "m4v", "png"], key="final_video")
+        upload = st.file_uploader("Sube el video final", type=["png", "jpg", "jpeg", "webp"], key="final_video")
         if upload:
             st.image(upload, use_container_width=True)
             #st.video(upload)
