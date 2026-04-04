@@ -705,12 +705,14 @@ def page_final() -> None:
 
     video_path = local_asset(ASSET_VIDEO_PATH)
     if video_path:
-        st.video(str(video_path))
+        #st.video(str(video_path))
+        st.image(str(video_path), use_container_width=True)
     else:
         st.info("Pon tu video como `assets/video_final.png` o súbelo aquí.")
         upload = st.file_uploader("Sube el video final", type=["mp4", "mov", "m4v", "png"], key="final_video")
         if upload:
-            st.video(upload)
+            st.image(upload, use_container_width=True)
+            #st.video(upload)
 
     st.markdown("### Mensaje final")
     st.write(
